@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:WarehouseStockOpname.ViewModels"
+             xmlns:models="clr-namespace:WarehouseStockOpname.Models"
+             x:Class="WarehouseStockOpname.Views.MainPage"
+             x:DataType="viewmodels:MainViewModel"
+             Title="Warehouse Stock Opname">
+
+    <Grid RowDefinitions="Auto,*" Padding="10">
+        
+        <!-- Header Section -->
+        <Grid Grid.Row="0" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*,*" Margin="0,0,0,20">
+            
+            <!-- Title -->
+            <Label Grid.Row="0" Grid.ColumnSpan="3" 
+                   Text="Dashboard" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   Margin="0,0,0,15"/>
+
+            <!-- Statistics Cards -->
+            <Frame Grid.Row="1" Grid.Column="0" 
+                   BackgroundColor="#E3F2FD" 
+                   Padding="15" 
+                   Margin="5" 
+                   CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="Total Products" FontSize="12" TextColor="#1976D2"/>
+                    <Label Text="{Binding TotalProducts}" FontSize="24" FontAttributes="Bold" TextColor="#1565C0"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Grid.Row="1" Grid.Column="1" 
+                   BackgroundColor="#FFF3E0" 
+                   Padding="15" 
+                   Margin="5" 
+                   CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="Active Opnames" FontSize="12" TextColor="#F57C00"/>
+                    <Label Text="{Binding ActiveOpnames}" FontSize="24" FontAttributes="Bold" TextColor="#EF6C00"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Grid.Row="1" Grid.Column="2" 
+                   BackgroundColor="#E8F5E9" 
+                   Padding="15" 
+                   Margin="5" 
+                   CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="Completed" FontSize="12" TextColor="#388E3C"/>
+                    <Label Text="{Binding CompletedOpnames}" FontSize="24" FontAttributes="Bold" TextColor="#2E7D32"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Action Buttons -->
+            <Grid Grid.Row="2" Grid.ColumnSpan="3" ColumnDefinitions="*,*" Margin="0,10,0,0">
+                <Button Grid.Column="0" 
+                        Text="New Stock Opname" 
+                        Command="{Binding CreateNewOpnameCommand}"
+                        BackgroundColor="#2196F3"
+                        TextColor="White"
+                        Margin="5"
+                        CornerRadius="10"/>
+                
+                <Button Grid.Column="1" 
+                        Text="View Products" 
+                        Command="{Binding GoToProductsCommand}"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"
+                        Margin="5"
+                        CornerRadius="10"/>
+            </Grid>
+        </Grid>
+
+        <!-- Stock Opname List -->
+        <RefreshView Grid.Row="1" 
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding LoadDataCommand}">
+            <CollectionView ItemsSource="{Binding StockOpnames}">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="No stock opname records" 
+                               FontSize="18" 
+                               TextColor="Gray"
+                               HorizontalOptions="Center"/>
+                        <Label Text="Tap 'New Stock Opname' to start" 
+                               FontSize="14" 
+                               TextColor="Gray"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:StockOpname">
+                        <Frame Margin="5" 
+                               Padding="15" 
+                               BackgroundColor="White"
+                               CornerRadius="10">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainViewModel}}, Path=OpenOpnameCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            
+                            <Grid ColumnDefinitions="*,Auto,Auto">
+                                <VerticalStackLayout Grid.Column="0">
+                                    <Label Text="{Binding OpnameNumber}" 
+                                           FontSize="18" 
+                                           FontAttributes="Bold"/>
+                                    <Label Text="{Binding OpnameDate, StringFormat='{0:dd MMM yyyy HH:mm}'}" 
+                                           FontSize="12" 
+                                           TextColor="Gray"/>
+                                    <Label Text="{Binding PerformedBy, StringFormat='By: {0}'}" 
+                                           FontSize="12" 
+                                           TextColor="Gray"/>
+                                </VerticalStackLayout>
+
+                                <Frame Grid.Column="1" 
+                                       Padding="8,4" 
+                                       CornerRadius="5"
+                                       VerticalOptions="Start"
+                                       Margin="5,0">
+                                    <Frame.BackgroundColor>
+                                        <Binding Path="Status">
+                                            <Binding.Converter>
+                                                <converters:StatusToColorConverter xmlns:converters="clr-namespace:WarehouseStockOpname.Converters"/>
+                                            </Binding.Converter>
+                                        </Binding>
+                                    </Frame.BackgroundColor>
+                                    <Label Text="{Binding Status}" 
+                                           FontSize="12" 
+                                           TextColor="White"/>
+                                </Frame>
+
+                                <Button Grid.Column="2" 
+                                        Text="🗑️"
+                                        BackgroundColor="#F44336"
+                                        TextColor="White"
+                                        CornerRadius="5"
+                                        Padding="10,5"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainViewModel}}, Path=DeleteOpnameCommand}"
+                                        CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>
