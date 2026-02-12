@@ -2,6 +2,17 @@
 
 Aplikasi mobile .NET MAUI untuk manajemen stock opname gudang dengan fitur barcode scanning.
 
+[![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-8.0-512BD4?style=flat&logo=dotnet)](https://dotnet.microsoft.com/apps/maui)
+[![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Windows-blue)](https://github.com/abcdels/learn-git-batch-4)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+## 📚 Documentation
+
+- **[🚀 Quick Start Guide](QUICKSTART.md)** - Get started in 5 minutes!
+- **[📖 Installation Guide](INSTALLATION.md)** - Detailed setup instructions
+- **[🏗️ Architecture Documentation](WarehouseStockOpname/ARCHITECTURE.md)** - Technical deep-dive
+- **[📊 Project Summary](PROJECT_SUMMARY.md)** - Complete feature overview
+
 ## 🚀 Fitur Utama
 
 ### 1. **Dashboard**
@@ -256,6 +267,30 @@ MIT License
 ## 📞 Support
 
 Untuk pertanyaan dan support, silakan buat issue di repository.
+
+## 📚 Additional Resources
+
+### Documentation
+- [Quick Start Guide](QUICKSTART.md) - 5-minute tutorial
+- [Installation Guide](INSTALLATION.md) - Complete setup
+- [Architecture Docs](WarehouseStockOpname/ARCHITECTURE.md) - Technical details
+- [Project Summary](PROJECT_SUMMARY.md) - Feature overview
+
+### External Links
+- [.NET MAUI Documentation](https://docs.microsoft.com/dotnet/maui/)
+- [SQLite-net](https://github.com/praeclarum/sqlite-net)
+- [CommunityToolkit.Mvvm](https://learn.microsoft.com/windows/communitytoolkit/mvvm/)
+- [ZXing.Net.Maui](https://github.com/Redth/ZXing.Net.Maui)
+
+## 🌟 Features Highlight
+
+✅ **Complete MVVM** implementation with CommunityToolkit  
+✅ **Barcode Scanning** via camera with ZXing  
+✅ **SQLite Database** with auto-seeding  
+✅ **Real-time Statistics** on dashboard  
+✅ **Color-coded UI** for better UX  
+✅ **Cross-platform** (Android, iOS, Windows)  
+✅ **Production-ready** architecture  
 
 ---
 
